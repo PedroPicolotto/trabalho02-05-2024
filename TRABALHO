@@ -1,0 +1,116 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(ScoreboardApp());
+}
+
+class ScoreboardApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Scoreboard',
+      home: ScoreboardScreen(),
+    );
+  }
+}
+
+class ScoreboardScreen extends StatefulWidget {
+  @override
+  _ScoreboardScreenState createState() => _ScoreboardScreenState();
+}
+
+class _ScoreboardScreenState extends State<ScoreboardScreen> {
+  int teamAScore = 0;
+  int teamBScore = 0;
+
+  void incrementTeamAScore() {
+    setState(() {
+      teamAScore++;
+    });
+  }
+
+  void decrementTeamAScore() {
+    setState(() {
+      if (teamAScore > 0) {
+        teamAScore--;
+      }
+    });
+  }
+
+  void incrementTeamBScore() {
+    setState(() {
+      teamBScore++;
+    });
+  }
+
+  void decrementTeamBScore() {
+    setState(() {
+      if (teamBScore > 0) {
+        teamBScore--;
+      }
+    });
+  }
+
+  void resetScores() {
+    setState(() {
+      teamAScore = 0;
+      teamBScore = 0;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Scoreboard'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Equipe A: $teamAScore',
+              style: TextStyle(fontSize: 24),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: incrementTeamAScore,
+                  child: Text('+1'),
+                ),
+                RaisedButton(
+                  onPressed: decrementTeamAScore,
+                  child: Text('-1'),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Equipe B: $teamBScore',
+              style: TextStyle(fontSize: 24),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: incrementTeamBScore,
+                  child: Text('+1'),
+                ),
+                RaisedButton(
+                  onPressed: decrementTeamBScore,
+                  child: Text('-1'),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            RaisedButton(
+              onPressed: resetScores,
+              child: Text('Limpar Pontuação'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
